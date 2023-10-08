@@ -29,10 +29,21 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION=$(date "+%Y.%m.%d")
-          RELEASE_TAG=$(gh release --repo ${{github.repository}} view --json tagName --jq .tagName)
-          echo $RELEASE_TAG
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          DATE=$(date "+%Y.%m.%d")
+          LATEST_RELEASE_TAG=$(gh release view --json tagName --jq .tagName)
+          echo "LATEST_RELEASE_TAG=$LATEST_RELEASE_TAG"
+          LATEST_RELEASE_DATE=$(echo "$LATEST_RELEASE_TAG" | cut -d. -f1-3)
+          echo "LATEST_RELEASE_DATE=$LATEST_RELEASE_DATE"
+
+          INCREMENTAL_VERSION=1
+          if [ "$DATE" = "$LATEST_RELEASE_DATE" ]; then
+              INCREMENTAL_VERSION=$(echo "$LATEST_RELEASE_TAG" | cut -d. -f4)
+              ((INCREMENTAL_VERSION++))
+          fi
+          echo "INCREMENTAL_VERSION=$INCREMENTAL_VERSION"
+
+          RELEASE_TAG="$DATE.$INCREMENTAL_VERSION"
+          echo "version=${RELEASE_VERSION}" >> $GITHUB_OUTPUT
           echo "Version set to ${VERSION}"
       # Drafts your next Release notes as Pull Requests are merged into "main"
       - uses: release-drafter/release-drafter@v5
