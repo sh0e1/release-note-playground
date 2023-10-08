@@ -20,7 +20,7 @@ jobs:
       - name: Generate CalVer version
         id: calver
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date "+%Y.%m.%d")
           LATEST_RELEASE_TAG=$(gh release view --repo ${{github.repository}} --json tagName --jq .tagName) || true
