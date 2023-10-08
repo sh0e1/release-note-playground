@@ -24,16 +24,13 @@ jobs:
         run: |
           DATE=$(date "+%Y.%m.%d")
           LATEST_RELEASE_TAG=$(gh release view --repo ${{github.repository}} --json tagName --jq .tagName) || true
-          echo "LATEST_RELEASE_TAG=$LATEST_RELEASE_TAG"
           LATEST_RELEASE_DATE=$(echo "$LATEST_RELEASE_TAG" | cut -d. -f1-3)
-          echo "LATEST_RELEASE_DATE=$LATEST_RELEASE_DATE"
 
           INCREMENTAL_VERSION=1
           if [ "$DATE" = "$LATEST_RELEASE_DATE" ]; then
               INCREMENTAL_VERSION=$(echo "$LATEST_RELEASE_TAG" | cut -d. -f4)
               ((INCREMENTAL_VERSION++))
           fi
-          echo "INCREMENTAL_VERSION=$INCREMENTAL_VERSION"
 
           RELEASE_VERSION="$DATE.$INCREMENTAL_VERSION"
           echo "version=${RELEASE_VERSION}" >> $GITHUB_OUTPUT
