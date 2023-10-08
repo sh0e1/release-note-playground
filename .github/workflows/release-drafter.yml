@@ -5,6 +5,7 @@ on:
     # branches to consider in the event; optional, defaults to all
     branches:
       - main
+      - update-release-drafter
   # pull_request event is required only for autolabeler
   pull_request:
     # Only following types are handled by the action, but one can default to all as well
@@ -27,6 +28,8 @@ jobs:
         id: calver
         run: |
           VERSION=$(date "+%Y.%m.%d")
+          RELEASE_TAG=$(gh release --repo ${{github.repository}} view --json tagName --jq .tagName)
+          echo $RELEASE_TAG
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "Version set to ${VERSION}"
       # Drafts your next Release notes as Pull Requests are merged into "main"
