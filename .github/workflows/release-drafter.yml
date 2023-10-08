@@ -28,6 +28,7 @@ jobs:
         id: calver
         env:
           GH_TOKEN: ${{ github.token }}
+        continue-on-error: true
         run: |
           DATE=$(date "+%Y.%m.%d")
           LATEST_RELEASE_TAG=$(gh release view --repo ${{github.repository}} --json tagName --jq .tagName)
