@@ -37,7 +37,7 @@ jobs:
 
           RELEASE_TAG="$DATE.$INCREMENTAL_VERSION"
           echo "version=${RELEASE_VERSION}" >> $GITHUB_OUTPUT
-          echo "Version set to ${VERSION}"
+          echo "Version set to ${RELEASE_VERSION}"
       # Drafts your next Release notes as Pull Requests are merged into "main"
       - uses: release-drafter/release-drafter@v5
         with:
