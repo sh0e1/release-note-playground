@@ -35,7 +35,7 @@ jobs:
           fi
           echo "INCREMENTAL_VERSION=$INCREMENTAL_VERSION"
 
-          RELEASE_TAG="$DATE.$INCREMENTAL_VERSION"
+          RELEASE_VERSION="$DATE.$INCREMENTAL_VERSION"
           echo "version=${RELEASE_VERSION}" >> $GITHUB_OUTPUT
           echo "Version set to ${RELEASE_VERSION}"
       # Drafts your next Release notes as Pull Requests are merged into "main"
