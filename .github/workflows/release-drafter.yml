@@ -26,8 +26,8 @@ jobs:
       - name: Generate CalVer version
         id: calver
         run: |
-          export VERSION=$(date "+%Y.%m.%d")
-          echo ::set-output name=version::${VERSION}
+          VERSION=$(date "+%Y.%m.%d")
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "Version set to ${VERSION}"
       # Drafts your next Release notes as Pull Requests are merged into "main"
       - uses: release-drafter/release-drafter@v5
