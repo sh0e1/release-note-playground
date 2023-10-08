@@ -30,7 +30,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           DATE=$(date "+%Y.%m.%d")
-          LATEST_RELEASE_TAG=$(gh release view --json tagName --jq .tagName)
+          LATEST_RELEASE_TAG=$(gh release view --repo ${{github.repository}} --json tagName --jq .tagName)
           echo "LATEST_RELEASE_TAG=$LATEST_RELEASE_TAG"
           LATEST_RELEASE_DATE=$(echo "$LATEST_RELEASE_TAG" | cut -d. -f1-3)
           echo "LATEST_RELEASE_DATE=$LATEST_RELEASE_DATE"
